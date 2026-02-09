@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Thanga Mayil ❤️</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:white;
+overflow:hidden;
+font-family: 'Segoe UI', sans-serif;
+text-align:center;
+}
+
+/* Star Background */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://i.ibb.co/Yp6XW0N/stars.gif");
+opacity:0.3;
+z-index:-1;
+}
+
+/* Intro */
+#intro{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+color:gold;
+animation:fadeIntro 4s forwards;
+}
+
+@keyframes fadeIntro{
+0%{opacity:1;}
+100%{opacity:0; visibility:hidden;}
+}
+
+/* Question */
+#question{
+position:absolute;
+top:40%;
+width:100%;
+}
+
+button{
+padding:15px 30px;
+border:none;
+border-radius:10px;
+font-size:18px;
+margin:10px;
+cursor:pointer;
+}
+
+#yes{ background:#ff4081; color:white; }
+#no{ background:gray; color:white; }
+
+/* Slideshow */
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition: opacity 2s ease-in-out, transform 6s linear;
+}
+
+.slide.active{
+opacity:1;
+transform: scale(1.1);
+}
+
+/* Romantic Title */
+#title{
+position:absolute;
+top:20px;
+width:100%;
+font-size:35px;
+color:gold;
+display:none;
+animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px gold;}
+to{text-shadow:0 0 30px pink;}
+}
+
+/* Love Letter */
+#letter{
+position:absolute;
+bottom:80px;
+width:100%;
+font-size:24px;
+display:none;
+color:pink;
+}
+
+/* Final Screen */
+#final{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:40px;
+color:red;
+animation:fadeIn 2s;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* Floating Hearts */
+.heart{
+position:fixed;
+bottom:-30px;
+color:pink;
+animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0); opacity:1;}
+100%{transform:translateY(-100vh); opacity:0;}
+}
+
+/* Fireworks */
+.fire{
+position:fixed;
+font-size:30px;
+animation:burst 1s ease-out forwards;
+}
+
+@keyframes burst{
+0%{transform:scale(0); opacity:1;}
+100%{transform:scale(3); opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="intro">For My Thanga Mayil 🦚</div>
+
+<div id="question">
+<h1>Will You Be My Valentine ❤️</h1>
+<button id="yes">Yes</button>
+<button id="no">No</button>
+</div>
+
+<div id="title">Thanga Mayil 💖</div>
+
+<div id="letter"></div>
+
+<div id="final">
+<h1>I Knew You Love Me ❤️</h1>
+<h3>Thanks Pappa… Coming into my life 💖</h3>
+</div>
+
+<audio id="music" loop>
+<source src="Mudhal-Nee-Mudivum-Nee-Title-Track-MassTamilan.io.mp3">
+</audio>
+
+<img class="slide" src="IMG_5817.jpeg">
+<img class="slide" src="IMG_5593.jpeg">
+<img class="slide" src="IMG_5117.jpeg">
+<img class="slide" src="IMG_4618.jpeg">
+<img class="slide" src="IMG_4521.jpeg">
+<img class="slide" src="IMG_2512.jpeg">
+
+<script>
+
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const slides=document.querySelectorAll(".slide");
+const music=document.getElementById("music");
+const title=document.getElementById("title");
+const letter=document.getElementById("letter");
+const final=document.getElementById("final");
+
+let index=0;
+
+/* NO escape */
+no.onmouseover=()=>{
+no.style.position="absolute";
+no.style.top=Math.random()*80+"%";
+no.style.left=Math.random()*80+"%";
+};
+
+/* YES click */
+yes.onclick=()=>{
+
+document.getElementById("question").style.display="none";
+title.style.display="block";
+letter.style.display="block";
+
+music.play();
+slides[0].classList.add("active");
+
+startHearts();
+startFireworks();
+typeLetter();
+startSlides();
+
+setTimeout(()=>{
+final.style.display="flex";
+},35000);
+
+};
+
+/* Slideshow */
+function startSlides(){
+setInterval(()=>{
+slides[index].classList.remove("active");
+index=(index+1)%slides.length;
+slides[index].classList.add("active");
+},5000);
+}
+
+/* Hearts */
+function startHearts(){
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"%";
+h.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},250);
+}
+
+/* Fireworks */
+function startFireworks(){
+setInterval(()=>{
+let f=document.createElement("div");
+f.className="fire";
+f.innerHTML="✨";
+f.style.left=Math.random()*100+"%";
+f.style.top=Math.random()*100+"%";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+},500);
+}
+
+/* Typewriter Love Letter */
+const msg="You are my happiness, my peace, my forever love ❤️";
+let i=0;
+
+function typeLetter(){
+let typing=setInterval(()=>{
+letter.innerHTML+=msg[i];
+i++;
+if(i>=msg.length) clearInterval(typing);
+},80);
+}
+
+</script>
+
+</body>
+</html>
